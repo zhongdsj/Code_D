@@ -7,7 +7,6 @@
 #include "GameFramework/Character.h"
 #include "BattleCharacter.generated.h"
 
-enum class EWeaponAttackDirection : uint8;
 class UBattleComponent;
 class AMovePointCircle;
 class USpringArmComponent;
@@ -45,9 +44,6 @@ protected:
 	void ViewAction(const FInputActionValue& _value);
 	void JumpAction(const FInputActionValue& _value);
 	void MouseLeftAction(const FInputActionValue& _value);
-
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
-	void OnBattleDirectionChange(EWeaponAttackDirection _direction);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data", meta = (DisplayName = "show circle", ToolTip = "是否显示圆圈"))
 	bool m_showCircle = false;
@@ -93,9 +89,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Materia")
 	TObjectPtr<UMaterialInterface> m_highLightMaterialInterface = nullptr;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Data", meta = (DisplayName = "battle direction change threshold value", ToolTip = "朝向修改阈值"))
-	float m_battleDirectionChangeThresholdValue = 0.05f;
 
 	TSoftObjectPtr<UBattleComponent> m_battleComponent = nullptr;
 };

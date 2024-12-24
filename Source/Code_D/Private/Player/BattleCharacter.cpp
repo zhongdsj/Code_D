@@ -90,22 +90,12 @@ void ABattleCharacter::MoveAction(const FInputActionValue& _value)
 void ABattleCharacter::LookAction(const FInputActionValue& _value)
 {
 	const auto look_vector = _value.Get<FVector2D>() * this->m_mouseSensitivity;
-	// GEngine->AddOnScreenDebugMessage(1, 2, FColor::Red, FString::Printf(TEXT("(x: %f, y: %f)"), look_vector.X, look_vector.Y));
-	EWeaponAttackDirection battle_direction = EWeaponAttackDirection::Null;
-	if(look_vector.X > this->m_battleDirectionChangeThresholdValue)
+
+	if(this->m_battleComponent.IsValid())
 	{
-		battle_direction = EWeaponAttackDirection::Right;
-	}else if(look_vector.X < -this->m_battleDirectionChangeThresholdValue)
-	{
-		battle_direction = EWeaponAttackDirection::Left;
-	}else if(look_vector.Y > this->m_battleDirectionChangeThresholdValue)
-	{
-		battle_direction = EWeaponAttackDirection::Up;
-	}else if(look_vector.Y < -this->m_battleDirectionChangeThresholdValue)
-	{
-		battle_direction = EWeaponAttackDirection::Down;
+		this->m_battleComponent->BattleDirectionChange(look_vector);
 	}
-	this->OnBattleDirectionChange(battle_direction);
+
 	if(this->Controller)
 	{
 		// 控制角色旋转

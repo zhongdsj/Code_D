@@ -3,6 +3,7 @@
 
 #include "Components/BattleComponent.h"
 #include "Actors/WeaponActor.h"
+#include "Enums/WeaponAttackDirection.h"
 #include "GameFramework/Character.h"
 #include "Player/BattleCharacter.h"
 
@@ -88,4 +89,25 @@ void UBattleComponent::AttackReady(EWeaponAnimationEnum _direction)
 bool UBattleComponent::AttackReady() const
 {
 	return this->m_attackReady;
+}
+
+void UBattleComponent::BattleDirectionChange(const FVector2D& _input)
+{
+	if (_input.X > this->m_battleDirectionChangeThresholdValue)
+	{
+		this->m_attackDirection = EWeaponAttackDirection::Right;
+	}
+	else if (_input.X < -this->m_battleDirectionChangeThresholdValue)
+	{
+		this->m_attackDirection = EWeaponAttackDirection::Left;
+	}
+	else if (_input.Y > this->m_battleDirectionChangeThresholdValue)
+	{
+		this->m_attackDirection = EWeaponAttackDirection::Up;
+	}
+	else if (_input.Y < -this->m_battleDirectionChangeThresholdValue)
+	{
+		this->m_attackDirection = EWeaponAttackDirection::Down;
+	}
+	this->OnBattleDirectionChange();
 }
