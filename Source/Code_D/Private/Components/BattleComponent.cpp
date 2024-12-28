@@ -91,8 +91,19 @@ bool UBattleComponent::AttackReady() const
 	return this->m_attackReady;
 }
 
+void UBattleComponent::SetNeedShowDirectionHud(const bool _show)
+{
+	this->m_needShowDirectionHud = _show;
+}
+
 void UBattleComponent::BattleDirectionChange(const FVector2D& _input)
 {
+	// 临时不启用, 将蓝图方法转为c++后启用
+	/*if(!this->m_needShowDirectionHud)
+	{
+		return;
+	}*/
+
 	if (_input.X > this->m_battleDirectionChangeThresholdValue)
 	{
 		this->m_attackDirection = EWeaponAttackDirection::Right;

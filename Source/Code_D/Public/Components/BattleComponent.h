@@ -34,6 +34,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool AttackReady() const;
 
+	UFUNCTION(BlueprintCallable)
+	void SetNeedShowDirectionHud(const bool _show);
+
 	void BattleDirectionChange(const FVector2D& _input);
 protected:
 	// Called when the game starts
@@ -47,6 +50,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, meta = (DisplayName = "attackDirection", ToolTip = "朝向enum"))
 	EWeaponAttackDirection m_attackDirection = EWeaponAttackDirection::Null;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool m_needShowDirectionHud = false;
 private:
 
 	TSoftObjectPtr<AWeaponActor> m_weapon = nullptr;
@@ -57,7 +63,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Data", meta = (DisplayName = "battle direction change threshold value", ToolTip = "朝向修改阈值"))
 	float m_battleDirectionChangeThresholdValue = 0.05f;
-
 
 	void OnAttackReadyMontageBlendingOut(UAnimMontage* _montage, bool _interrupted);
 };
